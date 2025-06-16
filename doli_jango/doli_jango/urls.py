@@ -16,7 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# Incluir la aplicación al proyecto
+from django.urls import include, re_path
+# Convocar a las urls de las settings
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    re_path(r"^", include("DoliJangoApp.urls")),
+    re_path('accounts/', include('django.contrib.auth.urls')),
+]+static(settings.STATIC_URL,
+        document_root=settings.STATICFILES_DIRS)+static(settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  

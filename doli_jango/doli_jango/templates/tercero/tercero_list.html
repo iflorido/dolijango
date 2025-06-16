@@ -1,0 +1,88 @@
+{% extends "base_generic.html" %}
+{% block sidebar %}
+  {% include "partials/sidebarmenutercero.html" %}
+{% endblock %}
+{% block content %}
+
+
+<main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <div class="col-sm-6"><h3 class="mb-0">Terceros</h3></div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Terceros</li>
+                </ol>
+              </div>
+            </div>
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content Header-->
+        <!--begin::App Content-->
+        <div class="app-content">
+          <!--begin::Container-->
+          <div class="card">
+    <div class="card-body">
+        <h4 class="header-title">Lista de Clientes DoliJango</h4>
+        <p class="sub-header">
+            <a href="{% url 'tercero-create' %}">Agregar Cliente</a>
+        </p>
+
+        
+        <!-- Formulario de búsqueda -->
+        <form method="GET" action="">
+            <input type="text" name="q" placeholder="Buscar por nombre, DNI o correo electrónico" value="{{ request.GET.q }}">
+            <button type="submit">Buscar</button>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th>Tarjeta ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>DNI</th>
+                        <th>E-Mail</th>
+                        <th>Gestión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <th scope="row">{{ cliente.tarjeta_id }}</th>
+                        <td> {{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellidos }}</td>
+                        <td>{{ cliente.dni }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td> <a href="{% url 'cliente-update' cliente.pk %}">Editar</a> |
+                            <a href="{% url 'cliente-delete' cliente.pk %}">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div> <!-- end table-responsive-->
+    </div>
+</div> <!-- end card -->
+          <!--end::Container-->
+        </div>
+        <!--end::App Content-->
+      </main>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

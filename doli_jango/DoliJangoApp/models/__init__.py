@@ -1,0 +1,1 @@
+from .modelTercero import Tercero

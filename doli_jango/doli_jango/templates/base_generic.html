@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+  <!--begin::Head-->
+    {% include 'partials/header.html' %}
+    {% load static %}
+      <!--end::Head-->
+  <!--begin::Body-->
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <!--begin::App Wrapper-->
+       <!--begin::App Wrapper-->
+    <div class="app-wrapper">
+      <!--begin::Header-->
+    {% include 'partials/top_nav.html' %}
+    {% block sidebar %}
+    {# menú por defecto #}
+    {% include "partials/sidebarmenu.html" %}
+    {% endblock %}
+   
+    <!--begin::App Main-->
+    {% block content %} {% endblock %}
+    <!--end::App Main-->
+    <!--begin::Footer-->
+     {% include 'partials/footer.html' %}
+     <!--end::Footer-->
+    </div>
+    <!--end::App Wrapper-->
+    <!--begin::Script-->
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    {% include 'partials/js_script.html' %}
+     <!--end::Script-->
+  </body>
+  <!--end::Body-->
+</html>

@@ -1,0 +1,124 @@
+<!-- cliente_form.html -->
+{% extends "base_generic.html" %}
+{% load custom_filters %}
+{% block content %}
+
+<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Cliente</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.nombre.id_for_label }}">ID de Tarjeta</label>
+        <div class="col-md-10">
+            {{ form.tarjeta_id|addcssclass:"form-control" }}
+        </div>
+    </div>
+
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.nombre.id_for_label }}">Nombre</label>
+        <div class="col-md-10">
+            {{ form.nombre|addcssclass:"form-control" }}
+        </div>
+    </div>
+    
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.apellidos.id_for_label }}">Apellidos</label>
+        <div class="col-md-10">
+            {{ form.apellidos|addcssclass:"form-control" }}
+        </div>
+    </div>
+
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.dni.id_for_label }}">DNI</label>
+        <div class="col-md-10">
+            {{ form.dni|addcssclass:"form-control" }}
+        </div>
+    </div>
+
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.email.id_for_label }}">Email</label>
+        <div class="col-md-10">
+            {{ form.email|addcssclass:"form-control" }}
+        </div>
+    </div>
+
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.telefono.id_for_label }}">Teléfono</label>
+        <div class="col-md-10">
+            {{ form.telefono|addcssclass:"form-control" }}
+        </div>
+    </div>
+
+    <div class="mb-2 row">
+        <label class="col-md-2 col-form-label" for="{{ form.direccion.id_for_label }}">Dirección</label>
+        <div class="col-md-10">
+            {{ form.direccion|addcssclass:"form-control" }}
+        </div>
+    </div>
+    <div class="mb-2 row">
+    <h4 class="header-title">Provincia</h4>
+    {{ form.provincia|addcssclass:"form-select" }}
+    </div>
+    <div class="mb-2 row">
+        <h4 class="header-title">Poblanción</h4>
+        {{ form.poblacion|addcssclass:"form-select" }}
+    </div>
+    <div class="mb-2 row">
+            <label class="col-md-2 col-form-label" for="{{ form.pais.id_for_label }}">Pais</label>
+            <div class="col-md-10">
+                {{ form.pais|addcssclass:"form-control" }}
+            </div>
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+<a href="{% url 'cliente-list' %}">Cancelar</a>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const provinciaField = document.getElementById('id_provincia');
+        const poblacionField = document.getElementById('id_poblacion');
+
+        // Función para cargar las opciones de Población vía AJAX
+        function loadPoblaciones(provincia) {
+            if (!provincia) {
+                poblacionField.innerHTML = '';  // Limpia las opciones actuales si no hay provincia seleccionada
+                return;
+            }
+
+            // Realiza la solicitud AJAX para obtener las poblaciones
+            fetch(`/get_poblaciones/?provincia=${provincia}`)
+                .then(response => response.json())
+                .then(data => {
+                    poblacionField.innerHTML = '';  // Limpia las opciones actuales
+                    data.forEach(function(poblacion) {
+                        const option = new Option(poblacion[1], poblacion[0]);
+                        poblacionField.add(option);
+                    });
+                });
+        }
+
+        // Carga las poblaciones cuando cambia la provincia
+        provinciaField.addEventListener('change', function () {
+            loadPoblaciones(this.value);
+        });
+
+        // Llama a la función inicialmente si hay una provincia seleccionada
+        if (provinciaField.value) {
+            loadPoblaciones(provinciaField.value);
+        }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}

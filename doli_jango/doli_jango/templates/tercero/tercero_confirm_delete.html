@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>¿Estás seguro de que deseas eliminar a {{ cliente.nombre }} {{ cliente.apellidos }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'cliente_list' %}">Cancelar</a>
+</form>
+{% endblock %}
