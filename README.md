@@ -19,4 +19,4 @@ pip freeze > requirements.txt
 
 # Paso 6 Crear el super usuario para la administración
 python manage.py createsuperuer 
-Nos pedirá el usuario, en este caso iflorido, nuestro correo y una contraseña que será dog+fechLaura
+Nos pedirá el usuario, en este caso iflorido, nuestro correo y una contraseña
