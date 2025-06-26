@@ -3,8 +3,33 @@
 {% load custom_filters %}
 {% block content %}
 
-<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Cliente</h2>
-<form method="post">
+<main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <div class="col-sm-6"><h3 class="mb-0">Terceros</h3></div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Terceros</li>
+                </ol>
+              </div>
+            </div>
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content Header-->
+        <!--begin::App Content-->
+        <div class="app-content">
+          <!--begin::Container-->
+                    <div class="card">
+    <div class="card-body col-sm-6">
+          <h4>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Cliente</h4>
+          <form method="post">
     {% csrf_token %}
     <div class="mb-2 row">
         <label class="col-md-2 col-form-label" for="{{ form.nombre.id_for_label }}">ID de Tarjeta</label>
@@ -55,12 +80,17 @@
         </div>
     </div>
     <div class="mb-2 row">
-    <h4 class="header-title">Provincia</h4>
-    {{ form.provincia|addcssclass:"form-select" }}
+    <label class="col-md-2 col-form-label" for="{{ form.provincia.id_for_label }}">Provincia</label>
+    <div class="col-md-10">
+    {{ form.provincia|addcssclass:"form-control" }}
+     </div>
     </div>
+
     <div class="mb-2 row">
-        <h4 class="header-title">Poblanción</h4>
-        {{ form.poblacion|addcssclass:"form-select" }}
+    <label class="col-md-2 col-form-label" for="{{ form.poblacion.id_for_label }}">Poblanción</label>
+    <div class="col-md-10">
+    {{ form.poblacion|addcssclass:"form-control" }}
+     </div>
     </div>
     <div class="mb-2 row">
             <label class="col-md-2 col-form-label" for="{{ form.pais.id_for_label }}">Pais</label>
@@ -69,8 +99,11 @@
             </div>
     </div>
     
-
-    <button type="submit" class="btn btn-primary">Guardar</button>
+ <div class="col-sm-6">
+ <button type="submit" class="btn btn-primary">Guardar</button>
+ <a href="{% url 'tercero-list' %}"> <button class="btn btn-warning">Cancelar</button></a>
+    </div>
+   
 </form>
 {% if form.errors %}
     <div class="alert alert-danger">
@@ -83,7 +116,8 @@
         </ul>
     </div>
 {% endif %}
-<a href="{% url 'cliente-list' %}">Cancelar</a>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const provinciaField = document.getElementById('id_provincia');
@@ -120,5 +154,27 @@
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        </div> <!-- end card -->
+          <!--end::Container-->
+          </div>
+        </div>
+
+        <!--end::App Content-->
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}

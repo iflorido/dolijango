@@ -3,6 +3,7 @@ from django.forms import inlineformset_factory, modelformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Tercero
+from .models import Empresa
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -14,6 +15,11 @@ class CustomUserCreationForm(UserCreationForm):
 class TerceroForm(forms.ModelForm):
     class Meta:
         model = Tercero
+        fields = '__all__'
+        
+class EmpresaForm(forms.ModelForm):
+    class Meta:
+        model = Empresa
         fields = '__all__'
         
 
